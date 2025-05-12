@@ -1,0 +1,45 @@
+{
+  "name": "homepages_backend",
+  "version": "1.0.0",
+  "description": "backend",
+  "keywords": [
+    "Node",
+    "Koa"
+  ],
+  "main": "app.js",
+  "scripts": {
+    "dev": "pm2 start app.js --watch",
+    "stop": "pm2 stop app.js",
+    "sdev": "node app.js"
+  },
+  "author": "SouthAki",
+  "license": "GPL-3.0",
+  "dependencies": {
+    "@koa/cors": "^5.0.0",
+    "@koa/router": "^13.1.0",
+    "axios": "^1.8.3",
+    "bcrypt": "^5.1.1",
+    "bcryptjs": "^3.0.2",
+    "crypto": "^1.0.1",
+    "dotenv": "^16.4.7",
+    "fs": "^0.0.1-security",
+    "ioredis": "^5.6.0",
+    "jsonwebtoken": "^9.0.2",
+    "koa": "^2.15.3",
+    "koa-body": "^6.0.1",
+    "koa-bodyparser": "^4.4.1",
+    "koa-compress": "^5.1.1",
+    "koa-helmet": "^8.0.1",
+    "koa-static": "^5.0.0",
+    "mammoth": "^1.9.0",
+    "mysql2": "^3.11.5",
+    "nodemailer": "^6.10.0",
+    "openai": "^4.98.0",
+    "path": "^0.12.7",
+    "pm2": "^6.0.5",
+    "ps-list": "^8.1.1",
+    "svg-captcha": "^1.4.0",
+    "web-push": "^3.6.7",
+    "ws": "^8.18.1"
+  }
+}
