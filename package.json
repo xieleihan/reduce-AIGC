@@ -17,6 +17,7 @@
   "dependencies": {
     "@koa/cors": "^5.0.0",
     "@koa/router": "^13.1.0",
+    "@vitalets/google-translate-api": "^9.2.1",
     "axios": "^1.8.3",
     "bcrypt": "^5.1.1",
     "bcryptjs": "^3.0.2",

@@ -4,6 +4,7 @@ const fs = require('fs');
 const path = require('path');
 const mammoth = require('mammoth');
 const { axiosPost } = require('../../api/index'); // 导入axiosGet函数
+const {translate }= require('@vitalets/google-translate-api');
 
 const router = new Router();
 
@@ -31,7 +32,26 @@ router.post('/upload', koaBody({
         // ctx.body = {
         //     text: result.value
         // };
-        const response = await axiosPost('/protected/deepseek', { text: result.value });
+        let str = ''
+        await translate(result.value, { to: 'jp' }).then(res => {
+            str = res.text
+            console.log("翻译结果jp", str)
+        }).catch(err => {
+            console.error(err);
+        });
+        await translate(str, { to: 'en' }).then(res => {
+            str = res.text
+            console.log("翻译结果en", str)
+        }).catch(err => {
+            console.error(err);
+        });
+        await translate(str, { to: 'zh' }).then(res => {
+            str = res.text
+            console.log("翻译结果zh", str)
+        }).catch(err => {
+            console.error(err);
+        });
+        const response = await axiosPost('/protected/deepseek', { text: str });
         ctx.body = response.data;
 
     } catch (err) {
