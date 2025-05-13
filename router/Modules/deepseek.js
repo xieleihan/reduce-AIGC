@@ -1,6 +1,6 @@
 const Router = require('@koa/router'); // 导入Koa路由
 const OpenAI = require("openai"); // 导入 OpenAI
-const thinkPrompt = require('../../utils/prompt')
+const {thinkPrompt,prompt} = require('../../utils/prompt')
 
 const router = new Router(
     {
@@ -20,11 +20,11 @@ const deepseek = new OpenAI(
     }
 ); // 创建深度求索API实例
 
-const sendMessage = async function ({ text }) {
+const sendMessage = async function ({ text,prompt }) {
     const completion = await deepseek.chat.completions.create({
         messages: [
             // { role: "system", content: thinkPrompt },
-            { role: "system", content: thinkPrompt },
+            { role: "system", content: prompt },
             { role: "user", content: text }
         ],
         model: "deepseek-chat",
@@ -35,7 +35,10 @@ const sendMessage = async function ({ text }) {
 
 router.post('/deepseek', async (ctx) => {
     const { text } = ctx.request.body;
-    let message = await sendMessage({ text });
+    let message = await sendMessage({ text, prompt });
+    console.log("重新思考");
+    // 重新思考
+    message = await sendMessage({ text: message, thinkPrompt });
     ctx.body = {
         message: message,
     };
