@@ -35,10 +35,10 @@ const sendMessage = async function ({ text,prompt }) {
 
 router.post('/deepseek', async (ctx) => {
     const { text } = ctx.request.body;
-    let message = await sendMessage({ text, prompt });
+    let message = await sendMessage({ text, prompt:prompt });
     console.log("重新思考");
     // 重新思考
-    message = await sendMessage({ text: message, thinkPrompt });
+    message = await sendMessage({ text: message, prompt:thinkPrompt });
     ctx.body = {
         message: message,
     };
