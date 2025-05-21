@@ -38,9 +38,6 @@ dotenv.config();
 //     ctx.body = 'Hello World!';
 // });
 
-// 导入路由
-const { docxToText,deepseek } = require('./router/index');
-
 // 使用跨域
 app.use(cors({
     allowMethods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
@@ -49,6 +46,10 @@ app.use(cors({
         return ctx.header.origin;
     }
 }));
+
+// 导入路由
+const { docxToText,deepseek } = require('./router/index');
+
 
 // 使用bodyparser
 app.use(bodyParser());

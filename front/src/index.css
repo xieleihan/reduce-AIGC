@@ -1,0 +1,61 @@
+/* base公用样式 */
+/* 初始化样式，通用样式 */
+/* start */
+/* 去掉页面所有标签的内填充外边距 */
+* {
+  /* 定义元素边框与元素内容之间的空间，即上下左右的内边距 */
+  padding: 0;
+  margin: 0;
+  /* css3新增样式 */
+  box-sizing: border-box;
+}
+
+/* 去掉列表符号 */
+li {
+  list-style: none;
+}
+
+/* 去掉img底部的缝隙 */
+img {
+  vertical-align: bottom;
+}
+
+/* 类是可以被定义的，比如，我们可以定义一个浮动类，这样，我们就可以在任意位置使用这个类了。 */
+.fl {
+  float: left;
+}
+
+.fr {
+  float: right;
+}
+
+/* ::after (:after) CSS伪元素 ::after 用来创建一个伪元素，作为已选中元素的最后一个子元素。 
+通常会配合 content 属性来为该元素添加装饰内容。 这个虚拟元素默认是行内元素 */
+.clear::after {
+  clear: both;
+  display: block;
+  content: "";
+}
+
+/* 设置整个页面整个字体相关样式 */
+body {
+  font-family: "PingFang SC", "Microsoft YaHei", "Arial", "Helvetica", "sans-serif";
+  /* 设置行高为1.5倍 */
+  line-height: 1.5;
+}
+
+/* 超链接的美化 */
+a {
+  /* 去掉超链接下划线 */
+  text-decoration: none;
+  /* 设置a标签的字体颜色继承父类元素 */
+  /* inherit就是继承父类 */
+  color: inherit;
+}
+
+html {
+  /* 平滑滚动 */
+  scroll-behavior: smooth;
+}
+
+/* end */

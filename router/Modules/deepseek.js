@@ -34,11 +34,13 @@ const sendMessage = async function ({ text,prompt }) {
 }
 
 router.post('/deepseek', async (ctx) => {
-    const { text } = ctx.request.body;
-    let message = await sendMessage({ text, prompt:prompt });
+    const { text, strLength } = ctx.request.body;
+    let promptAndLength = prompt + `必须保证文本长度在${strLength}个字符极其以上`;
+    let message = await sendMessage({ text, prompt: promptAndLength });
     console.log("重新思考");
     // 重新思考
-    message = await sendMessage({ text: message, prompt:thinkPrompt });
+    let thinkPromptAndLength = thinkPrompt + `必须保证文本长度在${strLength}个字符极其以上`;
+    message = await sendMessage({ text: message, prompt: thinkPromptAndLength });
     ctx.body = {
         message: message,
     };
