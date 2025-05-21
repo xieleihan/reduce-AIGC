@@ -51,7 +51,9 @@ router.post('/upload', koaBody({
         }).catch(err => {
             console.error(err);
         });
-        const response = await axiosPost('/protected/deepseek', { text: str });
+        // 获取str的字符数
+        const strLength = str.length;
+        const response = await axiosPost('/protected/deepseek', { text: str,strLength:strLength });
         ctx.body = response.data;
 
     } catch (err) {

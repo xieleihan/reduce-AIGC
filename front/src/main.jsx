@@ -1,10 +1,12 @@
-import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
-import App from './App.jsx'
+// 导入路由内置组件
+import { HashRouter } from 'react-router-dom'
+// 导入项目配置的路由对象
+import Router from './router/index.js'
 
 createRoot(document.getElementById('root')).render(
-  <StrictMode>
-    <App />
-  </StrictMode>,
+  <HashRouter>
+    <Router />
+  </HashRouter>
 )
