@@ -71,7 +71,7 @@ const App = () => {
             </p>
           </Dragger>
         </div>
-        <Spin spinning={spinning} percent='auto' fullscreen />
+        <Spin spinning={spinning} fullscreen />
       <div className='footer'>
         <Footer />
       </div>
