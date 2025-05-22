@@ -29,7 +29,7 @@ Deepseek must think in raw, streaming inner monologue before each response, insi
 
 const prompt = `Deepseek的任务:
 必须将文本优先从的任何语言翻译为英文,
-然后必须思考这个文本的中文,
+然后必须思考这个文本的中文,如何翻译贴近人类的正常的论文的语感,
 将中文结果作为输出，
 但要求不要太过严谨,
 没有格式的要求，
