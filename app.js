@@ -13,15 +13,16 @@ const helmet = require('koa-helmet');
 
 // 插件
 // 获取环境变量插件
-const dotenv = require('dotenv');
+const path = require('path');
+// 读取环境变量
+require('dotenv').config({ path: path.resolve(__dirname, './.env') });
+console.log("当前环境变量", process.env.DEEPSEEK_API_KEY, path.resolve(__dirname, './.env'));
 
 // 创建一个Koa对象表示web app本身
 const app = new Koa();
 // 创建一个Router对象表示web app的路由
 const router = new Router();
 
-// 读取环境变量
-dotenv.config();
 
 // 检测是否安装成功Koa
 // app.use(async ctx => {
@@ -48,7 +49,7 @@ app.use(cors({
 }));
 
 // 导入路由
-const { docxToText,deepseek } = require('./router/index');
+const { docxToText,deepseek,envwrite } = require('./router/index');
 
 
 // 使用bodyparser
@@ -69,6 +70,7 @@ app.use(router.routes());
 app.use(router.allowedMethods());
 app.use(docxToText.routes());
 app.use(deepseek.routes());
+app.use(envwrite.routes());
 
 // 静态资源分发
 app.use(require('koa-static')(__dirname + '/public'));

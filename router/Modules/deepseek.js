@@ -8,19 +8,30 @@ const router = new Router(
     }
 ); // 设置公共前缀
 
-const DEEPSEEK_API_KEY = process.env.DEEPSEEK_API_KEY; // 定义深度求索API密钥
-const DEEPSEEK_API_BASE_URL = process.env.DEEPSEEK_API_BASE_URL; // 定义深度求索API基础URL
+// const DEEPSEEK_API_KEY = process.env.DEEPSEEK_API_KEY; // 定义深度求索API密钥
+// const DEEPSEEK_API_BASE_URL = process.env.DEEPSEEK_API_BASE_URL; // 定义深度求索API基础URL
+// console.log("深度求索API密钥", DEEPSEEK_API_KEY);
 
-const deepseek = new OpenAI(
-    {
-        apiKey: DEEPSEEK_API_KEY,
-        baseURL: DEEPSEEK_API_BASE_URL,
-        tempurature: 0,
+// const deepseek = new OpenAI(
+//     {
+//         apiKey: DEEPSEEK_API_KEY,
+//         baseURL: DEEPSEEK_API_BASE_URL,
+//         temperature: 0,
+//         maxTokens: 20000,
+//     }
+// ); // 创建深度求索API实例
+
+const createDeepSeekInstance = () => {
+    return new OpenAI({
+        apiKey: process.env.DEEPSEEK_API_KEY,
+        baseURL: process.env.DEEPSEEK_API_BASE_URL,
+        temperature: 0, // ✅ 拼写修正
         maxTokens: 20000,
-    }
-); // 创建深度求索API实例
+    });
+};
 
-const sendMessage = async function ({ text,prompt }) {
+const sendMessage = async function ({ text, prompt }) {
+    const deepseek = createDeepSeekInstance();
     const completion = await deepseek.chat.completions.create({
         messages: [
             // { role: "system", content: thinkPrompt },
@@ -34,6 +45,7 @@ const sendMessage = async function ({ text,prompt }) {
 }
 
 router.post('/deepseek', async (ctx) => {
+    console.log("接收到请求", DEEPSEEK_API_KEY);
     const { text, strLength } = ctx.request.body;
     let promptAndLength = prompt + `必须保证文本长度在${strLength}个字符极其以上`;
     let message = await sendMessage({ text, prompt: promptAndLength });

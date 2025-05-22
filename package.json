@@ -8,7 +8,7 @@
   ],
   "main": "app.js",
   "scripts": {
-    "dev": "pm2 start app.js --watch",
+    "dev": "pm2 start app.js",
     "stop": "pm2 stop app.js",
     "sdev": "node app.js"
   },

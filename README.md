@@ -24,6 +24,7 @@
 >
 > ```bash
 > npm i
+> npm i -g pm2 / mac:sudo npm install -g pm2
 > npm run dev
 > ```
 >
