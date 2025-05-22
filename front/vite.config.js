@@ -38,4 +38,5 @@ export default defineConfig({
       additionalLegacyPolyfills: ['regenerator-runtime/runtime'] // 面向IE11的时候需要用到此插件
     })
   ],
+  base: '/reduce-AIGC/',
 })

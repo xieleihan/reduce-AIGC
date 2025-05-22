@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react';
 import GithubSvg from '../assets/icon/github-fill.png';
 
-const creation_time = import.meta.env.VITE_CREATION_TIME;
+const creation_time = import.meta.env.VITE_CREATION_TIME ? import.meta.env.VITE_CREATION_TIME : '2025/05/21 15:00:00';
 
 function Footer() {
     // 创建React变量

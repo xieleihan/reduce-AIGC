@@ -13,13 +13,15 @@ const App = () => {
   const navigate = useNavigate();
   const [spinning, setSpinning] = useState(false);
 
+  const url = import.meta.env.VITE_BASE_URL ? import.meta.env.VITE_BASE_URL : 'http://localhost:7977';
+
   const props = {
     name: 'file',
     multiple: true,
     accept: '.docx',
     maxCount: 1,
     method: 'post',
-    action: import.meta.env.VITE_BASE_URL + '/upload',
+    action: url + '/upload',
     async onChange(info) {
       const { status } = info.file;
       if (status === 'uploading') {
