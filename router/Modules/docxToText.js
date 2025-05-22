@@ -33,9 +33,9 @@ router.post('/upload', koaBody({
         //     text: result.value
         // };
         let str = ''
-        await translate(result.value, { to: 'jp' }).then(res => {
+        await translate(result.value, { to: 'ja' }).then(res => {
             str = res.text
-            console.log("翻译结果jp", str)
+            console.log("翻译结果ja", str)
         }).catch(err => {
             console.error(err);
         });
