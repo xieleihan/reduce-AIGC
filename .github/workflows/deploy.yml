@@ -32,6 +32,10 @@ jobs:
         run: npm install --legacy-peer-deps
         working-directory: ./front
 
+      - name: Create .env file
+        run: |
+          echo "VITE_CREATION_TIME=2025/05/21 15:00:00" > .env
+
       - name: Install terser
         run: npm install --save-dev terser
         working-directory: ./front
