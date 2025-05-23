@@ -56,8 +56,13 @@ function App() {
   };
 
   const handleOk = async () => {
-    setModalText('正在设置API Key,请稍等...');
     setConfirmLoading(true);
+    if (apiKey === "") { 
+      message.error('API Key不能为空');
+      setConfirmLoading(false);
+      return;
+    }
+    setModalText('正在设置API Key,请稍等...');
     await writeEnv({ DEEPSEEK_API_KEY: apiKey });
     setOpen(false);
     setConfirmLoading(false);
