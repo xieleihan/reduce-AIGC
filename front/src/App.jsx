@@ -8,7 +8,7 @@ import { useState, useEffect } from 'react';
 import ReactIcon from '/react.svg';
 import Footer from './components/Footer.jsx';
 import InputBox from './components/InputBox.jsx';
-import { writeEnv, getUserIp } from './api/request.js';
+import { writeEnv, getUserIp,verifyApiKey } from './api/request.js';
 // 使用React Redux
 import { useDispatch } from 'react-redux';
 import { setIpInfo, setAddressInfo } from './store/Modules/generalStore.js';
@@ -62,6 +62,31 @@ function App() {
       setConfirmLoading(false);
       return;
     }
+    // 验证API Key是否有效
+    let regexp = /^sk-[a-zA-Z0-9]{32}$/
+
+    if (!regexp.test(apiKey)) {
+      message.error('API Key格式不正确');
+      setConfirmLoading(false);
+      return;
+    }
+
+    let res;
+    try {
+      res = await verifyApiKey({ apiKey });
+    } catch {
+      message.error('API Key验证失败,请检查API Key是否正确');
+      setConfirmLoading(false);
+      return;
+    }
+    if (res.code !== 200) {
+      message.error('API Key验证失败,请检查API Key是否正确');
+      setConfirmLoading(false);
+      return;
+    } else {
+      message.success('API Key验证成功');
+    }
+
     setModalText('正在设置API Key,请稍等...');
     await writeEnv({ DEEPSEEK_API_KEY: apiKey });
     setOpen(false);

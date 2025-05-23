@@ -49,7 +49,7 @@ app.use(cors({
 }));
 
 // 导入路由
-const { docxToText,deepseek,envwrite,envread } = require('./router/index');
+const { docxToText,deepseek,envwrite,envread,verifyApiKey } = require('./router/index');
 
 
 // 使用bodyparser
@@ -72,6 +72,7 @@ app.use(docxToText.routes());
 app.use(deepseek.routes());
 app.use(envwrite.routes());
 app.use(envread.routes());
+app.use(verifyApiKey.routes());
 
 // 静态资源分发
 app.use(require('koa-static')(__dirname + '/public'));

@@ -22,3 +22,10 @@ export const writeEnv = function (data) {
 export const getEnv = function (params) {
     return get('/protected/envread', params); 
 }
+
+/**
+ * 验证API Key是否有效
+ */
+export const verifyApiKey = function (data) {
+    return post('/public/verifyApiKey', data);
+}
