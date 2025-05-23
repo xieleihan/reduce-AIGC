@@ -8,16 +8,19 @@ import { useState, useEffect } from 'react';
 import ReactIcon from '/react.svg';
 import Footer from './components/Footer.jsx';
 import InputBox from './components/InputBox.jsx';
-import {writeEnv} from './api/request.js';
+import { writeEnv, getUserIp } from './api/request.js';
+// 使用React Redux
+import { useDispatch } from 'react-redux';
+import { setIpInfo, setAddressInfo } from './store/Modules/generalStore.js';
+import { setUserAgentWidthStore } from './store/Modules/WindowsSysteOptionsStore.js';
 
-const App = () => {
+function App() {
   // 初始化导航
   const navigate = useNavigate();
   const [spinning, setSpinning] = useState(false); // loading
   const [open, setOpen] = useState(false); // 弹窗
   const [confirmLoading, setConfirmLoading] = useState(false); // 弹窗loading
-  const [modalText, setModalText] = useState(`首先,需要强调的是本项目是开源项目,遵守GPL-3.0开源协议\n这里需要先初始化一下
-    `); // 弹窗内容
+  const [modalText, setModalText] = useState(`首先,需要强调的是本项目是开源项目,\n遵守GPL-3.0开源协议\n这里需要先初始化一下`); // 弹窗内容
   const [apiKey, setApiKey] = useState(""); // 存储子组件传递过来的apiKey
 
   const url = import.meta.env.VITE_BASE_URL ? import.meta.env.VITE_BASE_URL : 'http://localhost:7977';
@@ -74,8 +77,38 @@ const App = () => {
     setApiKey(value);
   }
 
+  // 初始化Redux
+  const dispatch = useDispatch()
+
   useEffect(() => { 
     setOpen(true);
+    getUserIp({}).then(async res => {
+      let str = JSON.stringify(res);
+      let obj = JSON.parse(str);
+      let address = obj.adcode.o
+      console.warn('当前用户访问的IP地址信息:', obj.ipinfo.text);
+      console.warn('当前用户位置信息:', address);
+      // 更新Redux
+      dispatch(setIpInfo(obj.ipinfo.text));
+      dispatch(setAddressInfo(address));
+    }).catch(err => {
+      console.log('获取用户IP地址失败:', err);
+    });
+    // 定义窗口大小更新函数
+    const handleResize = () => {
+      dispatch(setUserAgentWidthStore(window.innerWidth));
+    };
+
+    // 初始化 userAgentWidth
+    handleResize();
+
+    // 监听窗口变化
+    window.addEventListener("resize", handleResize);
+
+    // 组件卸载时移除监听器，防止内存泄漏
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
   }, []);
 
   return (
@@ -90,7 +123,9 @@ const App = () => {
             </div>
           </div>
           <div className="right">
-            <SettingOutlined />
+            <SettingOutlined onClick={() => {
+              navigate('/setting');
+            }} />
           </div>
         </div>
         <div className='content'>

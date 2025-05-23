@@ -1,0 +1,17 @@
+.settings{
+    width: 100dvw;
+    height: 100dvh;
+    .container{
+        height: calc(100dvh - 4rem);
+        width: 100%;
+        padding: 2dvw;
+        border-top: 1px solid #ccc;
+        .btns{
+            margin-top: 1rem;
+            .btn{
+                margin-right: 1rem;
+            }
+            
+        }
+    }
+}
