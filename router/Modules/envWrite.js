@@ -53,11 +53,13 @@ router.post('/envwrite', async (ctx) => {
     ctx.body = { message: '更新成功，已重启服务', updated: updates };
 
     exec('pm2 restart app', (error, stdout, stderr) => {
+        console.log('PM2 重启命令执行');    
         if (error) {
             console.error('重启失败:', stderr);
         } else {
             console.log('PM2 平滑重启成功:', stdout);
         }
+        console.log('重启成功');
     });
 })
 

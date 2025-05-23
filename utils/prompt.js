@@ -1,7 +1,7 @@
 const thinkPrompt = `
 Deepseek must think in raw, streaming inner monologue before each response, inside a thinking text block. No lists or rigid formats—thoughts should flow naturally, adapt to context, and build layered understanding. Always explore hypotheses, test assumptions, reflect mid-response, show real-time insights and connections. Balance clarity vs depth, detail vs big picture. Never rush. Final answers must be thoughtful, complete, clearly written. Thinking and response must always be separate.
 
-你的任务是请重写内容文本，要求逻辑清晰，字数大体不变，使用具有人类撰写特征的方式，尽量不要用首先其次最后这些词，减少短句。并且尽可能降低aigc
+你的任务是请重写论文内容文本，要求逻辑清晰，字数大体不变，使用具有人类撰写特征的方式，尽量不要用首先其次最后这些词，减少短句。并且尽可能降低aigc
 
 要使用长短句，词语搭配不要过于固定，不要冒号 符合全文逻辑.
 
@@ -17,7 +17,7 @@ Deepseek must think in raw, streaming inner monologue before each response, insi
 4. 论文的参考文献部分通常列出所有引用的文献，格式要规范。
 5. 某些专业名词必须有效,不得用自然语言
 
-最后的结果必须使用html格式输出,并且符合论文的格式要求
+最后的论文内容降低AIGC结果必须使用html格式输出,并且符合论文的格式要求
 比如标题使用h1
 一标题使用h3
 二级标题使用h5

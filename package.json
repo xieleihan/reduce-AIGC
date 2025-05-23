@@ -8,7 +8,7 @@
   ],
   "main": "app.js",
   "scripts": {
-    "dev": "pm2 start app.js",
+    "dev": "pm2 start ecosystem.config.js",
     "stop": "pm2 stop app.js",
     "sdev": "node app.js"
   },
@@ -24,6 +24,7 @@
     "crypto": "^1.0.1",
     "dotenv": "^16.4.7",
     "fs": "^0.0.1-security",
+    "https-proxy-agent": "^7.0.6",
     "ioredis": "^5.6.0",
     "jsonwebtoken": "^9.0.2",
     "koa": "^2.15.3",

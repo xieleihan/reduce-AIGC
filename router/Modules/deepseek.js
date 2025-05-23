@@ -25,7 +25,7 @@ const createDeepSeekInstance = () => {
     return new OpenAI({
         apiKey: process.env.DEEPSEEK_API_KEY,
         baseURL: process.env.DEEPSEEK_API_BASE_URL,
-        temperature: 0, // ✅ 拼写修正
+        temperature: 0,
         maxTokens: 20000,
     });
 };
@@ -45,7 +45,6 @@ const sendMessage = async function ({ text, prompt }) {
 }
 
 router.post('/deepseek', async (ctx) => {
-    console.log("接收到请求", DEEPSEEK_API_KEY);
     const { text, strLength } = ctx.request.body;
     let promptAndLength = prompt + `必须保证文本长度在${strLength}个字符极其以上`;
     let message = await sendMessage({ text, prompt: promptAndLength });
