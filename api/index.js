@@ -25,8 +25,16 @@ function axiosInternetGet(url, params) {
         .catch(err => Promise.reject(err));
 }
 
+// 封装一个远程Get请求,可以传入请求头参数
+function axiosInternetGetWithHeaders(url, params, headers) {
+    return service.get(url, { params, headers })
+        .then(res => res)  // 返回整个响应对象
+        .catch(err => Promise.reject(err));
+}
+
 module.exports = {
     axiosGet,
     axiosPost,
-    axiosInternetGet
+    axiosInternetGet,
+    axiosInternetGetWithHeaders
 }
