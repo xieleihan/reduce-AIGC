@@ -4,6 +4,9 @@ import GithubSvg from '../assets/icon/github-fill.png';
 
 const creation_time = import.meta.env.VITE_CREATION_TIME ? import.meta.env.VITE_CREATION_TIME : '2025/05/21 15:00:00';
 
+// 读取Redux中的数值
+import { useSelector } from 'react-redux';
+
 function Footer() {
     // 创建React变量
     // 与创建的时间过去的天数
@@ -18,6 +21,8 @@ function Footer() {
     const [t, setT] = useState(0);
     // 与创建的时间旅行者一号飞行的天文单位数
     const [a, setA] = useState(0);
+    const [userWidth, setUserWidth] = useState(0);
+    const userAgentWidth = useSelector((state) => state.windowsSystemOptions.userAgentWidth);
 
     // 生命周期创建计时器
     useEffect(() => {
@@ -44,10 +49,16 @@ function Footer() {
         return () => clearInterval(timer);
     }, []);
 
+    useEffect(() => {
+        setUserWidth(userAgentWidth);
+    }, [userAgentWidth])
+
     return (
         <>
             <p>本站已经安全运行了：{days}天{hours}时{minutes}分{seconds}秒 | 该项目开源<img style={{ height: '1rem', aspectRatio: '1/1' }} src={GithubSvg} alt='Github' loading='lazy' /><a style={{color: 'blue'}} href='https://github.com/xieleihan/reduce-AIGC'>点击访问</a></p>
-            <p>现在旅行者一号距离地球{t}千米，约为{a}个天文单位🚀</p>
+            {userWidth > 460 ? (
+                <p>现在旅行者一号距离地球{t}千米，约为{a}个天文单位🚀</p>
+            ): (<></>)}
         </>
     );
 }

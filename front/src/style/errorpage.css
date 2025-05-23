@@ -1,0 +1,37 @@
+.errorPages {
+    width: 100dvw;
+    height: 100dvh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    position: relative;
+}
+
+.errorPages .navbar {
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+.errorPages .errorImg {
+    width: 80%;
+    aspect-ratio: 1/1;
+}
+
+.errorPages .errorWord {
+    font-size: .8rem;
+    font-weight: 700;
+}
+
+.errorPages .errorDesc {
+    font-size: .8rem;
+    margin-bottom: .3rem;
+}
+
+@media (min-width: 768px) {
+    .errorPages .errorImg {
+        width: 30%;
+    }
+}

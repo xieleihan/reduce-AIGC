@@ -1,14 +1,36 @@
-import App from '../App.jsx';
-import Message from '../Message.jsx'
+// 导入React
+import { lazy, Suspense } from 'react';
+
+// 导入Antd组件
+import { Spin } from 'antd';
+const App = lazy(() => import('../App.jsx'));
+const Message = lazy(() => import('../Message.jsx'));
+const ErrorPages = lazy(() => import('../pages/ErrorPage.jsx'));
 
 const routes = [
     {
         path: '/',
-        element: <App />,
+        element: (
+            <Suspense fallback={<Spin size="large" />}>
+                <App />
+            </Suspense>
+        ),
     },
     {
         path: '/message',
-        element: <Message />,
+        element: (
+            <Suspense fallback={<Spin size="large" />}>
+                <Message />
+            </Suspense>
+        )
+    },
+    {
+        path: '*',
+        element: (
+            <Suspense fallback={<Spin size="large" />}>
+                <ErrorPages />
+            </Suspense>
+        ),
     }
 ]
 
