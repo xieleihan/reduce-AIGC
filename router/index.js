@@ -1,9 +1,11 @@
-const docxToText = require('./Modules/docxToText');
-const deepseek = require('./Modules/deepseek');
-const envwrite = require('./Modules/envWrite');
+const docxToText = require('./Modules/docxToText'); // docx转txt
+const deepseek = require('./Modules/deepseek'); // 大语言模型
+const envwrite = require('./Modules/envWrite'); // 写入环境变量
+const envread = require('./Modules/envRead'); // 读取环境变量
 
 module.exports = {
     docxToText,
     deepseek,
-    envwrite
+    envwrite,
+    envread
 }

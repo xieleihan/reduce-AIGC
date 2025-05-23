@@ -8,13 +8,11 @@ import { useState, useEffect } from 'react';
 import ReactIcon from '/react.svg';
 import Footer from './components/Footer.jsx';
 import InputBox from './components/InputBox.jsx';
-import { writeEnv } from './api/request.js';
+import { writeEnv, getUserIp } from './api/request.js';
 // 使用React Redux
 import { useDispatch } from 'react-redux';
 import { setIpInfo, setAddressInfo } from './store/Modules/generalStore.js';
 import { setUserAgentWidthStore } from './store/Modules/WindowsSysteOptionsStore.js';
-// 导入请求
-import { getUserIp } from "./api/request";
 
 function App() {
   // 初始化导航
@@ -125,7 +123,9 @@ function App() {
             </div>
           </div>
           <div className="right">
-            <SettingOutlined />
+            <SettingOutlined onClick={() => {
+              navigate('/setting');
+            }} />
           </div>
         </div>
         <div className='content'>
