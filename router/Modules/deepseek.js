@@ -8,25 +8,13 @@ const router = new Router(
     }
 ); // 设置公共前缀
 
-// const DEEPSEEK_API_KEY = process.env.DEEPSEEK_API_KEY; // 定义深度求索API密钥
-// const DEEPSEEK_API_BASE_URL = process.env.DEEPSEEK_API_BASE_URL; // 定义深度求索API基础URL
-// console.log("深度求索API密钥", DEEPSEEK_API_KEY);
-
-// const deepseek = new OpenAI(
-//     {
-//         apiKey: DEEPSEEK_API_KEY,
-//         baseURL: DEEPSEEK_API_BASE_URL,
-//         temperature: 0,
-//         maxTokens: 20000,
-//     }
-// ); // 创建深度求索API实例
-
 const createDeepSeekInstance = () => {
+    // Temperature设置: 0 适合生成代码, 1 适合生成文本
     return new OpenAI({
         apiKey: process.env.DEEPSEEK_API_KEY,
         baseURL: process.env.DEEPSEEK_API_BASE_URL,
-        temperature: 0,
-        maxTokens: 20000,
+        temperature: 1.5,
+        maxTokens: 200000,
     });
 };
 
@@ -38,7 +26,8 @@ const sendMessage = async function ({ text, prompt }) {
             { role: "system", content: prompt },
             { role: "user", content: text }
         ],
-        model: "deepseek-chat",
+        // model: "deepseek-chat",
+        model: "deepseek-reasoner"
     });
     console.log("API Response:", completion.choices[0].message.content);
     return completion.choices[0].message.content;
