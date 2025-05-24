@@ -120,10 +120,6 @@ function App() {
       setStash(false);
     });
 
-    const unsubscribe = pubsub.subscribe('error', () => {
-      setStash(false);
-    });
-
     // 获取用户端IP地址信息
     getUserIp({}).then(async res => {
       let str = JSON.stringify(res);
@@ -140,13 +136,11 @@ function App() {
     // 获取当前后端服务状态
     getServiceStatus({}).then(res => {
       // console.log('当前后端服务状态:', res);
-      if (res.status === 200) {
-        setStash(false);
-      } else {
+      if (res.status === 'success') {
         setStash(true);
       }
     }).catch(err => {
-      setStash(true);
+      setStash(false);
       console.log('获取后端服务状态失败:', err);
     });
     // 定义窗口大小更新函数
@@ -163,8 +157,6 @@ function App() {
     // 组件卸载时移除监听器，防止内存泄漏
     return () => {
       window.removeEventListener("resize", handleResize);
-      // 取消订阅错误事件
-      unsubscribe();
     };
   }, []);
 
