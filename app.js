@@ -39,6 +39,19 @@ const router = new Router();
 //     ctx.body = 'Hello World!';
 // });
 
+router.get('/stats', async (ctx) => {
+    ctx.body = {
+        message: 'Welcome to the Koa server! This is the root endpoint.',
+        status: 'success',
+        timestamp: new Date().toISOString(),
+        version: '1.0.0',
+        environment: process.env.NODE_ENV || 'development',
+        apiKeyStatus: process.env.DEEPSEEK_API_KEY ? 'configured' : 'not configured',
+        apiBaseUrl: process.env.DEEPSEEK_API_BASE_URL || 'not set',
+    }
+    ctx.status = 200; // 设置响应状态码为200
+});
+
 // 使用跨域
 app.use(cors({
     allowMethods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
@@ -50,6 +63,7 @@ app.use(cors({
 
 // 导入路由
 const { docxToText,deepseek,envwrite,envread,verifyApiKey } = require('./router/index');
+const { env } = require('process');
 
 
 // 使用bodyparser
