@@ -8,11 +8,12 @@ import { useState, useEffect } from 'react';
 import ReactIcon from '/react.svg';
 import Footer from './components/Footer.jsx';
 import InputBox from './components/InputBox.jsx';
-import { writeEnv, getUserIp,verifyApiKey } from './api/request.js';
+import { writeEnv, getUserIp,verifyApiKey,getServiceStatus } from './api/request.js';
 // 使用React Redux
 import { useDispatch } from 'react-redux';
 import { setIpInfo, setAddressInfo } from './store/Modules/generalStore.js';
 import { setUserAgentWidthStore } from './store/Modules/WindowsSysteOptionsStore.js';
+import { pubsub } from './utils/pubsub.js';
 
 function App() {
   // 初始化导航
@@ -22,6 +23,7 @@ function App() {
   const [confirmLoading, setConfirmLoading] = useState(false); // 弹窗loading
   const [modalText, setModalText] = useState(`首先,需要强调的是本项目是开源项目,\n遵守GPL-3.0开源协议\n这里需要先初始化一下`); // 弹窗内容
   const [apiKey, setApiKey] = useState(""); // 存储子组件传递过来的apiKey
+  const [stash, setStash] = useState(false); // 存储子组件传递过来的stash
 
   const url = import.meta.env.VITE_BASE_URL ? import.meta.env.VITE_BASE_URL : 'http://localhost:7977';
 
@@ -112,6 +114,17 @@ function App() {
 
   useEffect(() => { 
     setOpen(true);
+
+    // 订阅错误事件
+    pubsub.subscribe('error', () => {
+      setStash(false);
+    });
+
+    const unsubscribe = pubsub.subscribe('error', () => {
+      setStash(false);
+    });
+
+    // 获取用户端IP地址信息
     getUserIp({}).then(async res => {
       let str = JSON.stringify(res);
       let obj = JSON.parse(str);
@@ -123,6 +136,18 @@ function App() {
       dispatch(setAddressInfo(address));
     }).catch(err => {
       console.log('获取用户IP地址失败:', err);
+    });
+    // 获取当前后端服务状态
+    getServiceStatus({}).then(res => {
+      // console.log('当前后端服务状态:', res);
+      if (res.status === 200) {
+        setStash(false);
+      } else {
+        setStash(true);
+      }
+    }).catch(err => {
+      setStash(true);
+      console.log('获取后端服务状态失败:', err);
     });
     // 定义窗口大小更新函数
     const handleResize = () => {
@@ -138,6 +163,8 @@ function App() {
     // 组件卸载时移除监听器，防止内存泄漏
     return () => {
       window.removeEventListener("resize", handleResize);
+      // 取消订阅错误事件
+      unsubscribe();
     };
   }, []);
 
@@ -182,7 +209,7 @@ function App() {
         onCancel={handleCancel}
       >
         <pre>{modalText}</pre>
-        {!confirmLoading && <InputBox onInputChange={handleInputChange} />}
+        {!confirmLoading && <InputBox stash={stash} onInputChange={handleInputChange} />}
       </Modal>
     </>
   );

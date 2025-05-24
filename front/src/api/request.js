@@ -29,3 +29,10 @@ export const getEnv = function (params) {
 export const verifyApiKey = function (data) {
     return post('/public/verifyApiKey', data);
 }
+
+/**
+ * 获取当前后端的服务状态
+ */
+export const getServiceStatus = function (params) {
+    return get('/stats', params);
+}
