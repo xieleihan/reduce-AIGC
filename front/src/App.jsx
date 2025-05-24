@@ -120,6 +120,10 @@ function App() {
       setStash(false);
     });
 
+    const unsubscribe = pubsub.subscribe('error', () => {
+      setStash(false);
+    });
+
     // 获取用户端IP地址信息
     getUserIp({}).then(async res => {
       let str = JSON.stringify(res);
@@ -159,6 +163,8 @@ function App() {
     // 组件卸载时移除监听器，防止内存泄漏
     return () => {
       window.removeEventListener("resize", handleResize);
+      // 取消订阅错误事件
+      unsubscribe();
     };
   }, []);
 
