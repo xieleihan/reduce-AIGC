@@ -117,7 +117,7 @@ function App() {
 
     // 订阅错误事件
     pubsub.subscribe('error', () => {
-      setStash(false);
+      setStash(true);
     });
 
     // 获取用户端IP地址信息
