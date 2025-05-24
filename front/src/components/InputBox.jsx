@@ -1,15 +1,24 @@
 import { Input } from "antd"
 import '../style/inputbox.css'
+import { useState, useEffect } from 'react';
 
 function InputBox({onInputChange,stash}) {
     const handleChange = (e) => {
         onInputChange?.(e.target.value); // 回调函数
     };
 
+    const [value, setValue] = useState(false);
+
+    useEffect(() => {
+        if (stash) {
+            setValue(false);
+        }
+    }, [stash]);
+
     return (
         <>
             
-            <div>{stash !== true ? (
+            <div>{value !== true ? (
                 <>
                     <div className="stashBox">当前后端服务状态:
                         <div className="stashRadius red" ></div>
