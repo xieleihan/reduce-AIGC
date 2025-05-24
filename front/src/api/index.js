@@ -1,5 +1,7 @@
 // 导入axios实例
 import instance from "../utils/request";
+// 导入发布订阅
+import { pubsub } from "../utils/pubsub";
 
 // 判断当前是否是本地开发环境
 // const isLocal = window.location.hostname === 'localhost';
@@ -26,6 +28,11 @@ export const get = async (url, params) => {
         return response;
     } catch (error) {
         console.error(`GET 请求错误: ${url}`, error);
+        pubsub.publish('error', {
+            message: `GET 请求错误: ${url}`,
+            error,
+            code: 500
+        });
         throw error; // 继续抛出错误，供调用方捕获
     }
 };
@@ -42,6 +49,11 @@ export const post = async (url, data) => {
         return response;
     } catch (error) {
         console.error(`POST 请求错误: ${url}`, error);
+        pubsub.publish('error', {
+            message: `POST 请求错误: ${url}`,
+            error,
+            code: 500
+        });
         throw error; // 继续抛出错误，供调用方捕获
     }
 };
@@ -58,6 +70,11 @@ export const getOut = async (url, params) => {
         return response;
     } catch (error) {
         console.error(`GET 请求错误: ${url}`, error);
+        pubsub.publish('error', {
+            message: `GET 请求错误: ${url}`,
+            error,
+            code: 500
+        });
         throw error; // 继续抛出错误，供调用方捕获
     }
 };
@@ -74,6 +91,11 @@ export const postOut = async (url, data) => {
         return response;
     } catch (error) {
         console.error(`POST 请求错误: ${url}`, error);
+        pubsub.publish('error', {
+            message: `POST 请求错误: ${url}`,
+            error,
+            code: 500
+        });
         throw error; // 继续抛出错误，供调用方捕获
     }
 };
