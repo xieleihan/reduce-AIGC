@@ -7,7 +7,7 @@ import { pubsub } from "../utils/pubsub";
 // const isLocal = window.location.hostname === 'localhost';
 
 // 导入host_url
-const host_url = import.meta.env.VITE_BASE_URL ? import.meta.env.VITE_BASE_URL : 'http://localhost:7977';
+const host_url = import.meta.env.VITE_BASE_URL ? import.meta.env.VITE_BASE_URL : 'https://localhost:7977';
 
 // 校验参数是否为对象类型
 const validateParams = (params) => {

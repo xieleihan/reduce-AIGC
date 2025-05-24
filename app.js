@@ -10,6 +10,13 @@ const bodyParser = require('koa-bodyparser');
 const compress = require('koa-compress');
 // 导入Koa-helmet
 const helmet = require('koa-helmet');
+const https = require('https');
+
+const fs = require('fs');
+const options = {
+    key: fs.readFileSync('./localhost-key.pem'),
+    cert: fs.readFileSync('./localhost.pem')
+};
 
 // 插件
 // 获取环境变量插件
@@ -48,23 +55,8 @@ app.use(cors({
     }
 }));
 
-router.get('/stats', async (ctx) => {
-    ctx.body = {
-        message: 'Welcome to the Koa server! This is the root endpoint.',
-        status: 'success',
-        timestamp: new Date().toISOString(),
-        version: '1.0.0',
-        environment: process.env.NODE_ENV || 'development',
-        apiKeyStatus: process.env.DEEPSEEK_API_KEY ? 'configured' : 'not configured',
-        apiBaseUrl: process.env.DEEPSEEK_API_BASE_URL || 'not set',
-    }
-    ctx.status = 200; // 设置响应状态码为200
-});
-
 // 导入路由
-const { docxToText,deepseek,envwrite,envread,verifyApiKey } = require('./router/index');
-const { env } = require('process');
-
+const { docxToText, deepseek, envwrite, envread, verifyApiKey, verifyStats } = require('./router/index');
 
 // 使用bodyparser
 app.use(bodyParser());
@@ -87,11 +79,12 @@ app.use(deepseek.routes());
 app.use(envwrite.routes());
 app.use(envread.routes());
 app.use(verifyApiKey.routes());
+app.use(verifyStats.routes());
 
 // 静态资源分发
 app.use(require('koa-static')(__dirname + '/public'));
-
+const server = https.createServer(options, app.callback());
 // 升级https
-app.listen(process.env.SERVER_PORT, () => {
-    console.log(`Server is running at http://localhost:${process.env.SERVER_PORT}`);
+server.listen(process.env.SERVER_PORT, () => {
+    console.log(`Server is running at https://localhost:${process.env.SERVER_PORT}`);
 });

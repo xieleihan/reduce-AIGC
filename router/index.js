@@ -3,6 +3,7 @@ const deepseek = require('./Modules/deepseek'); // 大语言模型
 const envwrite = require('./Modules/envWrite'); // 写入环境变量
 const envread = require('./Modules/envRead'); // 读取环境变量
 const verifyApiKey = require('./Modules/verifyApiKey'); // 验证API Key
+const verifyStats = require('./Modules/verifyStats'); // 验证API Key
 
 module.exports = {
     docxToText,
@@ -10,4 +11,5 @@ module.exports = {
     envwrite,
     envread,
     verifyApiKey,
+    verifyStats
 }
