@@ -117,7 +117,7 @@ function App() {
 
     // 订阅错误事件
     pubsub.subscribe('error', () => {
-      setStash(false);
+      setStash(true);
     });
 
     // 获取用户端IP地址信息
@@ -135,11 +135,9 @@ function App() {
     });
     // 获取当前后端服务状态
     getServiceStatus({}).then(res => {
-      // console.log('当前后端服务状态:', res);
-      if (res.status === 200) {
+      console.log('当前后端服务状态:', res.status);
+      if (res.status === "success") {
         setStash(false);
-      } else {
-        setStash(true);
       }
     }).catch(err => {
       setStash(true);
