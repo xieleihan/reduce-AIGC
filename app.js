@@ -39,6 +39,15 @@ const router = new Router();
 //     ctx.body = 'Hello World!';
 // });
 
+// 使用跨域
+app.use(cors({
+    allowMethods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    // 允许所有域名访问
+    origin: function (ctx) {
+        return ctx.header.origin;
+    }
+}));
+
 router.get('/stats', async (ctx) => {
     ctx.body = {
         message: 'Welcome to the Koa server! This is the root endpoint.',
@@ -51,15 +60,6 @@ router.get('/stats', async (ctx) => {
     }
     ctx.status = 200; // 设置响应状态码为200
 });
-
-// 使用跨域
-app.use(cors({
-    allowMethods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    // 允许所有域名访问
-    origin: function (ctx) {
-        return ctx.header.origin;
-    }
-}));
 
 // 导入路由
 const { docxToText,deepseek,envwrite,envread,verifyApiKey } = require('./router/index');
