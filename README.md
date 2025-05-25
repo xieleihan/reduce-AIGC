@@ -40,7 +40,7 @@
 > # 后端服务的端口,遇到冲突请修改
 > SERVER_PORT=7977
 > # 后端服务的Url,如果上面更改了端口,请修改下面的Url和前端代码中的相应
-> BASE_URL=http://localhost:7977
+> BASE_URL=https://localhost:7977
 > # 深度求索的API_key,自行申请
 > DEEPSEEK_API_KEY=sk-
 > # 深度求索的访问地址,不要修改,除非你清楚自己的操作会导致的问题
