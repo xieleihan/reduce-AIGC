@@ -25,7 +25,7 @@ function App() {
   const [apiKey, setApiKey] = useState(""); // 存储子组件传递过来的apiKey
   const [stash, setStash] = useState(false); // 存储子组件传递过来的stash
 
-  const url = import.meta.env.VITE_BASE_URL ? import.meta.env.VITE_BASE_URL : 'http://localhost:7977';
+  const url = import.meta.env.VITE_BASE_URL ? import.meta.env.VITE_BASE_URL : 'https://localhost:7977';
 
   const props = {
     name: 'file',
