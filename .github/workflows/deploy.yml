@@ -60,26 +60,5 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
-      - name: Merge main into test
-        if: ${{ success() }}
-        run: |
-          git config --global user.name "GitHub Actions"
-          git config --global user.email "actions@github.com"
-
-          # 确保在仓库根目录下操作
-          cd $GITHUB_WORKSPACE
-
-          # 切换到 test 分支
-          git checkout test
-
-          # 拉取最新代码
-          git pull origin test
-
-          # 合并 main 分支
-          git merge origin/main -m "Merge main into test via GitHub Actions"
-
-          # 推送到远程 test 分支
-          git push origin test
-
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
